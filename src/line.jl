@@ -9,7 +9,7 @@ function line(;kwargs...)
     colors = get(kwargs, :colors, defaultColors)
     cvalues = unique(color)
     lines = Any[]
-    for (i,c) in enumerate(cvalues)
+    for (i,c) in reverse(collect(enumerate(cvalues)))
         p = ax[:plot](x[color .== c], y[color .== c], color=colors[i], linewidth=2)
         push!(lines, p[1]) # oddity of matplotlib requires the dereference
     end
