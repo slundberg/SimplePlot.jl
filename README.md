@@ -4,6 +4,12 @@
 
 This is currently just a simple collection of plotting methods that I needed for a paper. I wanted to customize the plots more than is currently possible with Gadfly, so it is currently based on PyPlot (which uses matplotlib). Hopefully at some point in the future Gadfly can replace PyPlot.
 
+## Installation
+
+```julia
+Pkg.clone("https://github.com/slundberg/SimplePlot.jl.git")
+```
+
 ## Usage
 
 ```julia
