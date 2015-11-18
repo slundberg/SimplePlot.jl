@@ -1,5 +1,5 @@
 module SimplePlot
 
-# package code goes here
+include("bar.jl")
 
 end # module
