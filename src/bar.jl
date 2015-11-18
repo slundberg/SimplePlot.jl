@@ -3,7 +3,7 @@ using PyPlot
 function bar(;
         x=nothing, y=nothing, color=nothing,
         colors=["#3366CC", "#DC3912", "#FF9902", "#0C9618"],
-        legendLoc="upper right", figsize=(6, 4), xlabel=nothing, ylabel=nothing)
+        legend="upper right", figsize=(6, 4), xlabel=nothing, ylabel=nothing)
     xvalues = unique(x)
     xcount = Int64[sum(x .== v) for v in xvalues]
 
@@ -30,7 +30,7 @@ function bar(;
     end
     ax[:set_xticks](ind .+ width*maximum(xcount)/2 + groupSpacing - width*0.1)
     ax[:set_xticklabels](("G1", "G2", "G3", "G4", "G5"))
-    if legendLoc != "none"
+    if legend != "none"
         ax[:legend](bars, cvalues, frameon=false)
     end
     if xlabel != nothing

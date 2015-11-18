@@ -1,12 +1,12 @@
 function line(;
         x=nothing, y=nothing, color=nothing,
         colors=["#3366CC", "#DC3912", "#FF9902", "#0C9618"],
-    legendLoc="upper right", figsize=(6, 4), xlabel=nothing, ylabel=nothing)
+        legend="upper right", figsize=(6, 4), xlabel=nothing, ylabel=nothing)
     xvalues = unique(x)
     xcount = Int64[sum(x .== v) for v in xvalues]
 
     cvalues = unique(color)
-    
+
     fig,ax = subplots(figsize=figsize)
     ax[:spines]["right"][:set_visible](false)
     ax[:spines]["top"][:set_visible](false)
@@ -20,7 +20,7 @@ function line(;
     for (i,c) in enumerate(cvalues)
         push!(lines, ax[:plot](x[color .== c], y[color .== c], color=colors[i], linewidth=2)[1])
     end
-    if legendLoc != "none"
+    if legend != "none"
         ax[:legend](lines, cvalues, frameon=false)
     end
     if xlabel != nothing
