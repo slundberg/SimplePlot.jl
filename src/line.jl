@@ -12,6 +12,6 @@ function line(;kwargs...)
     end
 
     loc = get(kwargs, :legend, "upper right")
-    loc != "none" && ax[:legend](lines, reverse(cvalues), frameon=false, loc=loc)
+    loc != "none" && ax[:legend](reverse(lines), cvalues, frameon=false, loc=loc)
     fig
 end
