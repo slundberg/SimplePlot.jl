@@ -1,11 +1,8 @@
 function line(;kwargs...)
     kwargs = Dict(kwargs)
     fig,ax = subplots(figsize=get(kwargs, :figsize, (5, 4)))
-    set_axis_defaults(ax; kwargs...)
-
-    x = kwargs[:x]
-    y = kwargs[:y]
-    color = kwargs[:color]
+    x,y,color = set_defaults(ax; kwargs...)
+    
     colors = get(kwargs, :colors, defaultColors)
     cvalues = unique(color)
     lines = Any[]

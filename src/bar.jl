@@ -3,11 +3,8 @@ using PyPlot
 function bar(;kwargs...)
     kwargs = Dict(kwargs)
     fig,ax = subplots(figsize=get(kwargs, :figsize, (6, 4)))
-    set_axis_defaults(ax; kwargs...)
-
-    x = kwargs[:x]
-    y = kwargs[:y]
-    color = kwargs[:color]
+    x,y,color = set_defaults(ax; kwargs...)
+    
     colors = get(kwargs, :colors, defaultColors)
     xvalues = unique(x)
     xcount = Int64[sum(x .== v) for v in xvalues]
@@ -21,7 +18,7 @@ function bar(;kwargs...)
     for i in 1:length(xvalues)
         push!(cgroups, color[find(x .== xvalues[i])])
     end
-    
+
     bars = Any[]
     for (i,c) in enumerate(cvalues)
         vals = ones(length(xvalues))*Inf
