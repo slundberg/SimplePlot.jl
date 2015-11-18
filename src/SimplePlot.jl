@@ -1,5 +1,10 @@
 module SimplePlot
 
+using PyPlot
+
+# this allows us to decide when a plot gets shown
+ioff()
+
 defaultColors = ["#3366CC", "#DC3912", "#FF9902", "#0C9618"]
 
 function set_defaults(ax; kwargs...)
@@ -10,7 +15,7 @@ function set_defaults(ax; kwargs...)
     @assert length(kwargs[:x]) == length(kwargs[:y]) "x and y arguments must be the same length"
     color = get(kwargs, :color, ones(length(kwargs[:x])))
     @assert length(kwargs[:x]) == length(color) "x and color arguments must be the same length"
-    
+
     ax[:spines]["right"][:set_visible](false)
     ax[:spines]["top"][:set_visible](false)
     ax[:yaxis][:set_ticks_position]("left")

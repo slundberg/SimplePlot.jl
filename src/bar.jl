@@ -1,10 +1,9 @@
-using PyPlot
 
 function bar(;kwargs...)
     kwargs = Dict(kwargs)
     fig,ax = subplots(figsize=get(kwargs, :figsize, (6, 4)))
     x,y,color = set_defaults(ax; kwargs...)
-    
+
     colors = get(kwargs, :colors, defaultColors)
     xvalues = unique(x)
     xcount = Int64[sum(x .== v) for v in xvalues]
