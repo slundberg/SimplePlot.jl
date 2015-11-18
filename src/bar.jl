@@ -38,5 +38,4 @@ function bar(;kwargs...)
     loc = get(kwargs, :legend, "upper right")
     loc != "none" && ax[:legend](bars, cvalues, frameon=false, loc=loc)
     fig
-    1
 end
