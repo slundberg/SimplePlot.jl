@@ -1,6 +1,6 @@
 function line(;kwargs...)
     kwargs = Dict(kwargs)
-    fig,ax = subplots(figsize=get(kwargs, :figsize, (6, 4)))
+    fig,ax = subplots(figsize=get(kwargs, :figsize, (5, 4)))
     set_axis_defaults(ax; kwargs...)
 
     x = kwargs[:x]
@@ -10,7 +10,7 @@ function line(;kwargs...)
     cvalues = unique(color)
     lines = Any[]
     for (i,c) in reverse(collect(enumerate(cvalues)))
-        p = ax[:plot](x[color .== c], y[color .== c], color=colors[i], linewidth=2)
+        p = ax[:plot](x[color .== c], y[color .== c], color=colors[i], linewidth=3)
         push!(lines, p[1]) # oddity of matplotlib requires the dereference
     end
 
