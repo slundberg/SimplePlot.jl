@@ -5,6 +5,9 @@ using PyPlot
 # this allows us to decide when a plot gets shown
 ioff()
 
+# we default to svg because that is how they will go into a paper
+PyPlot.svg(true)
+
 defaultColors = ["#3366CC", "#DC3912", "#FF9902", "#0C9618"]
 
 function set_defaults(ax; kwargs...)
