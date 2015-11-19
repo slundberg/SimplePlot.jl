@@ -8,7 +8,7 @@ ioff()
 # we default to svg because that is how they will go into a paper
 PyPlot.svg(true)
 
-defaultColors = ["#3366CC", "#DC3912", "#FF9902", "#0C9618"]
+defaultColors = ["#3366CC", "#DC3912", "#FF9902", "#0C9618", "#0099C6", "#990099"]
 
 function set_defaults(ax; kwargs...)
     kwargs = Dict(kwargs)
