@@ -44,7 +44,11 @@ function bar(;kwargs...)
     ax[:set_xlim](0,length(xvalues)+groupSpacing)
     ax[:set_xticks](ind - 1 .+ width*maxBarOverlap/2 + groupSpacing)
     ax[:set_xticklabels](get(kwargs, :xticklabels, true) ? xvalues : Any[])
-
+    ax[:set_xticklabels](
+        get(kwargs, :xticklabels, true) ? xvalues : Any[],
+        rotation=get(kwargs, :xtickrotation, "horizontal")
+    )
+    
     loc = get(kwargs, :legend, "upper right")
     loc != "none" && ax[:legend](stacked ? reverse(bars) : bars, cvalues, frameon=false, loc=loc)
     fig
