@@ -48,7 +48,7 @@ function bar(;kwargs...)
         get(kwargs, :xticklabels, true) ? xvalues : Any[],
         rotation=get(kwargs, :xtickrotation, "horizontal")
     )
-    
+
     loc = get(kwargs, :legend, "upper right")
     loc != "none" && ax[:legend](stacked ? reverse(bars) : bars, cvalues, frameon=false, loc=loc)
     fig
