@@ -27,7 +27,8 @@ function set_defaults(ax; kwargs...)
     haskey(kwargs, :ylabel) && ax[:set_ylabel](kwargs[:ylabel])
     haskey(kwargs, :xlim) && ax[:set_xlim](kwargs[:xlim])
     haskey(kwargs, :ylim) && ax[:set_ylim](kwargs[:ylim])
-
+    haskey(kwargs, :title) && ax[:set_title](kwargs[:title])
+    
     kwargs[:x], kwargs[:y], color
 end
 
