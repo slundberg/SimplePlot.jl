@@ -21,7 +21,7 @@ using SimplePlot
 ```julia
 plot(
     bar(["G1", "G2", "G3", "G4"], [3,6,2,4], "A", color="#ffff00"),
-    bar(["G1", "G2", "G3", "G4"], [8,3,5,1], "B"),
+    bar(["G1", "G2", "G3", "G4"], [8,3,5,1], "B", alpha=0.5, linewidth=2),
     legend="none",
     ylabel="x axis",
     ylabel="y axis",
