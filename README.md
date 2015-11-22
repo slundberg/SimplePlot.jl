@@ -12,11 +12,13 @@ Pkg.clone("https://github.com/slundberg/SimplePlot.jl.git")
 
 ## Usage
 
+```julia
+using SimplePlot
+```
+
 ### Bar plot
 
 ```julia
-using SimplePlot
-
 plot(
     bar(["G1", "G2", "G3", "G4"], [3,6,2,4], "A", color="#ffff00"),
     bar(["G1", "G2", "G3", "G4"], [8,3,5,1], "B"),
