@@ -1,17 +1,39 @@
-function line(;kwargs...)
+
+export line
+
+type LineLayer <: Layer
+    x::AbstractVector
+    y::AbstractVector
+    label
+    color
+    alpha::Float64
+    linewidth::Float64
+end
+
+function line(; kwargs...)
     kwargs = Dict(kwargs)
-    fig,ax = subplots(figsize=get(kwargs, :figsize, (5, 4)))
-    x,y,color = set_defaults(ax; kwargs...)
 
-    colors = get(kwargs, :colors, defaultColors)
-    cvalues = unique(color)
-    lines = Any[]
-    for (i,c) in reverse(collect(enumerate(cvalues)))
-        p = ax[:plot](x[color .== c], y[color .== c], color=colors[i], linewidth=3)
-        push!(lines, p[1]) # oddity of matplotlib requires the dereference
-    end
+    @assert haskey(kwargs, :x) "x argument must be provided"
+    @assert haskey(kwargs, :y) "y argument must be provided"
+    @assert length(kwargs[:x]) == length(kwargs[:y]) "x and y arguments must be the same length"
 
-    loc = get(kwargs, :legend, "upper right")
-    loc != "none" && ax[:legend](reverse(lines), cvalues, frameon=false, loc=loc)
-    fig
+    LineLayer(
+        kwargs[:x],
+        kwargs[:y],
+        get(kwargs, :label, nothing),
+        get(kwargs, :color, nothing),
+        get(kwargs, :alpha, 1.0),
+        get(kwargs, :linewidth, 3)
+    )
+end
+function line(x, y; kwargs...)
+    line(x=x, y=y; kwargs...)
+end
+function line(x, y, label; kwargs...)
+    line(x=x, y=y, label=label; kwargs...)
+end
+
+function draw(ax, state, l::LineLayer)
+    p = ax[:plot](l.x, l.y, color=l.color, linewidth=l.linewidth, alpha=l.alpha)
+    p[1] # oddity of matplotlib requires the dereference
 end
