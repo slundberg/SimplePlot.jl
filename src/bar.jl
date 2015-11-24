@@ -100,7 +100,7 @@ register_plot_parser(bar_plot_parser);
 function draw(ax, state, l::BarLayer)
     i = state[:bar_ind]
     s = state[:bar_states][i]
-    p = ax[:bar](s[1], s[2], s[3], color=l.color, bottom=s[4],  edgecolor="none")
+    p = ax[:bar](s[1], s[2], s[3], color=l.color, bottom=s[4], edgecolor="none")
     state[:bar_ind] += 1
     p
 end
