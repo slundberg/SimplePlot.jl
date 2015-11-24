@@ -3,3 +3,4 @@ using Base.Test
 
 include("bar.jl")
 include("line.jl")
+include("violin.jl")

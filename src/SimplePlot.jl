@@ -1,6 +1,8 @@
 module SimplePlot
 
 import PyPlot
+using PyCall
+@pyimport matplotlib.patches as mpatches
 
 export plot
 
@@ -81,12 +83,26 @@ end
 function build_legend(ax, layers, plotObjects; kwargs...)
     kwargs = Dict(kwargs)
 
+    # placeholders for legend (because plots like violin don't directly support a legend)
+    patches = Any[]
+    for l in layers
+        if l.label != nothing
+            push!(patches, mpatches.Patch(color=l.color, label=l.label))
+        end
+    end
+
     mask = Bool[l.label != nothing for l in layers]
     loc = get(kwargs, :legend, "best")
-    loc != "none" && ax[:legend](plotObjects[mask], [l.label for l in layers][mask], frameon=false, loc=loc)
+    if loc != "none"
+        ax[:legend](
+            handles=patches, frameon=false, loc=loc, handlelength=0.7, handleheight=0.7,
+            handletextpad=0.5, fontsize="medium", labelspacing=0.4
+        )
+    end
 end
 
 include("bar.jl")
 include("line.jl")
+include("violin.jl")
 
 end # module
