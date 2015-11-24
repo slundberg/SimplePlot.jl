@@ -74,7 +74,7 @@ function build_axis(; kwargs...)
     haskey(kwargs, :xticklabels) && ax[:set_xticklabels](kwargs[:xticklabels])
     haskey(kwargs, :yticks) && ax[:set_yticks](kwargs[:yticks])
     haskey(kwargs, :yticklabels) && ax[:set_yticklabels](kwargs[:yticklabels])
-    
+
     fig,ax
 end
 
@@ -82,7 +82,7 @@ function build_legend(ax, layers, plotObjects; kwargs...)
     kwargs = Dict(kwargs)
 
     mask = Bool[l.label != nothing for l in layers]
-    loc = get(kwargs, :legend, "upper right")
+    loc = get(kwargs, :legend, "best")
     loc != "none" && ax[:legend](plotObjects[mask], [l.label for l in layers][mask], frameon=false, loc=loc)
 end
 
