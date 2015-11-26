@@ -94,7 +94,7 @@ function build_legend(ax, layers, plotObjects; kwargs...)
     mask = Bool[l.label != nothing for l in layers]
     loc = get(kwargs, :legend, "best")
     if loc != "none"
-        ax[:legend](patches, frameon=false, loc=loc, handlelength=0.7, handleheight=0.7,
+        ax[:legend](handles=patches, frameon=false, loc=loc, handlelength=0.7, handleheight=0.7,
             handletextpad=0.5, fontsize="medium", labelspacing=0.4
         )
     end
