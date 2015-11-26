@@ -32,44 +32,35 @@ axis(
 )
 ```
 
+### Axis options
+
+```julia
+axis(
+    line(1:4, [3,6,2,4], "A"),
+    line(1:4, [8,3,5,1], "B"),
+    legend="upper right",
+    ylabel="x axis",
+    ylabel="y axis",
+    figsize=(5,3),
+    stacked=false,
+    xtickrotation="horizontal",
+    xticklabels=true,
+    ylim=(0,10),
+    xlim=(1,4)
+)
+```
 
 
 ### Bar plot
 
 ```julia
-bar(["G1", "G2", "G3", "G4"], [3,6,2,4])
-```
-or
-```julia
-axis(
-    bar(["G1", "G2", "G3", "G4"], [3,6,2,4], "A", color="#ffff00"),
-    bar(["G1", "G2", "G3", "G4"], [8,3,5,1], "B", alpha=0.5, linewidth=2),
-    legend="none",
-    ylabel="x axis",
-    ylabel="y axis",
-    figsize=(5,3),
-    stacked=false,
-    xtickrotation="horizontal",
-    xticklabels=true,
-    ylim=(0,10)
-)
+bar(["G1", "G2", "G3", "G4"], [3,6,2,4], "Label", color="#000000", alpha=0.8)
 ```
 
 ### Line plot
 
 ```julia
-axis(
-    line(1:4, [3,6,2,4], "A", color="#ffff00"),
-    line(1:4, [8,3,5,1], "B"),
-    legend="none",
-    ylabel="x axis",
-    ylabel="y axis",
-    figsize=(5,3),
-    stacked=false,
-    xtickrotation="horizontal",
-    xticklabels=true,
-    ylim=(0,10)
-)
+line(1:4, [3,6,2,4], "A", color="#ffff00", alpha=0.8)
 ```
 
 
