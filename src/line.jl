@@ -10,6 +10,7 @@ type LineLayer <: Layer
     linewidth::Float64
 end
 
+"Build a LineLayer"
 function line(; kwargs...)
     kwargs = Dict(kwargs)
 
@@ -26,14 +27,14 @@ function line(; kwargs...)
         get(kwargs, :linewidth, 3)
     )
 end
-function line(x, y; kwargs...)
-    line(x=x, y=y; kwargs...)
-end
-function line(x, y, label; kwargs...)
-    line(x=x, y=y, label=label; kwargs...)
-end
+line(x, y; kwargs...) = line(x=x, y=y; kwargs...)
+line(x, y, label; kwargs...) = line(x=x, y=y, label=label; kwargs...)
 
+"Draw onto an axis"
 function draw(ax, state, l::LineLayer)
     p = ax[:plot](l.x, l.y, color=l.color, linewidth=l.linewidth, alpha=l.alpha)
     p[1] # oddity of matplotlib requires the dereference
 end
+
+"This wraps the layer in an axis for direct display"
+Base.show(io::Base.IO, h::LineLayer) = Base.display(axis(h))

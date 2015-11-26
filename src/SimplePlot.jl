@@ -4,7 +4,7 @@ import PyPlot
 using PyCall
 @pyimport matplotlib.patches as mpatches
 
-export plot
+export axis
 
 # this allows us to decide when a plot gets shown
 PyPlot.ioff()
@@ -17,7 +17,8 @@ defaultColors = ["#3366CC", "#DC3912", "#FF9902", "#0C9618", "#0099C6", "#990099
 
 abstract Layer
 
-function plot(layers...; kwargs...)
+"Create a new axis with the given layers and attributes."
+function axis(layers...; kwargs...)
     kwargs = Dict(kwargs)
 
     fig,ax = build_axis(; kwargs...)
@@ -34,7 +35,7 @@ function plot(layers...; kwargs...)
     # this gives plot type specific methods the chance to see all the data
     # before drawing each layer
     state = Dict() # a place for methods to store state for drawing
-    for parser in plotParsers
+    for parser in axisParsers
         parser(ax, state, layers...; kwargs...)
     end
 
@@ -48,16 +49,15 @@ function plot(layers...; kwargs...)
 
     fig
 end
-function plot(x::AbstractVector, y::AbstractVector)
-    plot(line(x, y))
+
+axisParsers = Function[]
+"Allow specific plot type to view the whole axis to make layout choices."
+function register_axis_parser(f::Function)
+    global axisParsers
+    push!(axisParsers, f)
 end
 
-plotParsers = Function[]
-function register_plot_parser(f::Function)
-    global plotParsers
-    push!(plotParsers, f)
-end
-
+"Creates an axis object."
 function build_axis(; kwargs...)
     kwargs = Dict(kwargs)
 
@@ -80,6 +80,7 @@ function build_axis(; kwargs...)
     fig,ax
 end
 
+"Adds a legend to the given axis object."
 function build_legend(ax, layers, plotObjects; kwargs...)
     kwargs = Dict(kwargs)
 
@@ -100,8 +101,10 @@ function build_legend(ax, layers, plotObjects; kwargs...)
     end
 end
 
+# include all the specific plot types
 include("bar.jl")
 include("line.jl")
 include("violin.jl")
+include("hist.jl")
 
 end # module

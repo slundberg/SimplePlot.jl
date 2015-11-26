@@ -8,6 +8,7 @@ type ViolinLayer <: Layer
     color
 end
 
+"Build a ViolinLayer"
 function violin(; kwargs...)
     kwargs = Dict(kwargs)
 
@@ -22,14 +23,11 @@ function violin(; kwargs...)
         get(kwargs, :color, nothing)
     )
 end
-function violin(x, data; kwargs...)
-    violin(x=x, data=data; kwargs...)
-end
-function violin(x, data, label; kwargs...)
-    violin(x=x, data=data, label=label; kwargs...)
-end
+violin(x, data; kwargs...) = violin(x=x, data=data; kwargs...)
+violin(x, data, label; kwargs...) = violin(x=x, data=data, label=label; kwargs...)
 
-function violin_plot_parser(ax, state, layers...; kwargs...)
+"Process all layers on an axis to determine the violin layout settings."
+function violin_axis_parser(ax, state, layers...; kwargs...)
     kwargs = Dict(kwargs)
 
     # check for how many violin layers are present
@@ -85,8 +83,9 @@ function violin_plot_parser(ax, state, layers...; kwargs...)
     reverse!(state[:violin_states])
     state[:violin_ind] = 1 # used for counting which bar state to use when drawing
 end
-register_plot_parser(violin_plot_parser);
+register_axis_parser(violin_axis_parser);
 
+"Draw onto an axis"
 function draw(ax, state, l::ViolinLayer)
     i = state[:violin_ind]
     s = state[:violin_states][i]
@@ -99,3 +98,6 @@ function draw(ax, state, l::ViolinLayer)
     state[:violin_ind] += 1
     p
 end
+
+"This wraps the layer in an axis for direct display"
+Base.show(io::Base.IO, h::ViolinLayer) = Base.display(axis(h))

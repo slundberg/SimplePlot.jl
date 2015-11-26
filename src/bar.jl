@@ -9,6 +9,7 @@ type BarLayer <: Layer
     alpha::Float64
 end
 
+"Build a BarLayer"
 function bar(; kwargs...)
     kwargs = Dict(kwargs)
 
@@ -24,14 +25,11 @@ function bar(; kwargs...)
         get(kwargs, :alpha, 1.0)
     )
 end
-function bar(x, y; kwargs...)
-    bar(x=x, y=y; kwargs...)
-end
-function bar(x, y, label; kwargs...)
-    bar(x=x, y=y, label=label; kwargs...)
-end
+bar(x, y; kwargs...) = bar(x=x, y=y; kwargs...)
+bar(x, y, label; kwargs...) = bar(x=x, y=y, label=label; kwargs...)
 
-function bar_plot_parser(ax, state, layers...; kwargs...)
+"Process all layers on an axis to determine the bar layout settings."
+function bar_axis_parser(ax, state, layers...; kwargs...)
     kwargs = Dict(kwargs)
 
     stacked = get(kwargs, :stacked, false)
@@ -95,8 +93,9 @@ function bar_plot_parser(ax, state, layers...; kwargs...)
     !stacked && reverse!(state[:bar_states])
     state[:bar_ind] = 1 # used for counting which bar state to use when drawing
 end
-register_plot_parser(bar_plot_parser);
+register_axis_parser(bar_axis_parser);
 
+"Draw onto an axis"
 function draw(ax, state, l::BarLayer)
     i = state[:bar_ind]
     s = state[:bar_states][i]
@@ -104,3 +103,6 @@ function draw(ax, state, l::BarLayer)
     state[:bar_ind] += 1
     p
 end
+
+"This wraps the layer in an axis for direct display"
+Base.show(io::Base.IO, h::BarLayer) = Base.display(axis(h))
