@@ -14,9 +14,25 @@ Pkg.clone("https://github.com/slundberg/SimplePlot.jl.git")
 
 ## Usage
 
+Every plot is composed of one or more layers and a single axis. Building a layer directly is simple:
+
 ```julia
 using SimplePlot
+
+line(1:10, rand(10))
 ```
+
+When a layer object is displayed it will automatically get wrapped in a default axis. To customize the axis or combine multiple layers into a single axis use the `axis()` function:
+
+```julia
+axis(
+    line(1:10, rand(10)),
+    line(1:10, rand(10)),
+    xlabel="count"
+)
+```
+
+
 
 ### Bar plot
 
