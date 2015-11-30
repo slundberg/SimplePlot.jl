@@ -13,7 +13,7 @@ PyPlot.ioff()
 PyPlot.svg(true)
 
 # these are based on a good set of colors used in Google sheets
-defaultColors = ["#3366CC", "#DC3912", "#FF9902", "#0C9618", "#0099C6", "#990099"]
+defaultColors = ["#3366CC", "#DC3912", "#FF9902", "#0C9618", "#0099C6", "#990099", "#DD4477", "#66AA00", "#B82E2E"]
 
 abstract Layer
 
