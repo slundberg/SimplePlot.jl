@@ -21,6 +21,8 @@ abstract Layer
 function axis(layers...; kwargs...)
     kwargs = Dict(kwargs)
 
+    layers = collect(filter(x->x != nothing, layers))
+
     fig,ax = build_axis(; kwargs...)
 
     # fill in any missing colors with the defaults
