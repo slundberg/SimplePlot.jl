@@ -58,9 +58,8 @@ function bar_axis_parser(ax, state, layers...; kwargs...)
     ax[:set_xlim](0,length(xvalues)+groupSpacing)
     ax[:set_xticks](ind - 1 .+ width*maxBarOverlap/2 + groupSpacing)
     ax[:xaxis][:set_ticks_position]("none")
-    ax[:set_xticklabels](get(kwargs, :xticklabels, true) ? xvalues : Any[])
     ax[:set_xticklabels](
-        get(kwargs, :xticklabels, true) ? xvalues : Any[],
+        haskey(kwargs, :xticklabels) ? kwargs[:xticklabels] : xvalues,
         rotation=get(kwargs, :xtickrotation, "horizontal")
     )
 
