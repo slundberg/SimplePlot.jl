@@ -76,8 +76,10 @@ function build_axis(; kwargs...)
     haskey(kwargs, :title) && ax[:set_title](kwargs[:title])
     haskey(kwargs, :xticks) && ax[:set_xticks](kwargs[:xticks])
     haskey(kwargs, :xticklabels) && ax[:set_xticklabels](kwargs[:xticklabels])
+    haskey(kwargs, :xscale) && ax[:set_xscale](kwargs[:xscale])
     haskey(kwargs, :yticks) && ax[:set_yticks](kwargs[:yticks])
     haskey(kwargs, :yticklabels) && ax[:set_yticklabels](kwargs[:yticklabels])
+    haskey(kwargs, :yscale) && ax[:set_yscale](kwargs[:yscale])
 
     fig,ax
 end
