@@ -22,5 +22,5 @@ function point(; kwargs...)
         get(kwargs, :markerfacecolor, nothing)
     )
 end
-point(x, y; kwargs...) = line(x=x, y=y; kwargs...)
-point(x, y, label; kwargs...) = line(x=x, y=y, label=label; kwargs...)
+point(x, y; kwargs...) = point(x=x, y=y; kwargs...)
+point(x, y, label; kwargs...) = point(x=x, y=y, label=label; kwargs...)
