@@ -108,6 +108,7 @@ end
 # include all the specific plot types
 include("bar.jl")
 include("line.jl")
+include("point.jl")
 include("violin.jl")
 include("hist.jl")
 

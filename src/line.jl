@@ -8,6 +8,10 @@ type LineLayer <: Layer
     color
     alpha::Float64
     linewidth::Float64
+    linestyle
+    marker
+    markersize
+    markerfacecolor
 end
 
 "Build a LineLayer"
@@ -24,7 +28,11 @@ function line(; kwargs...)
         get(kwargs, :label, nothing),
         get(kwargs, :color, nothing),
         get(kwargs, :alpha, 1.0),
-        get(kwargs, :linewidth, 3)
+        get(kwargs, :linewidth, 3),
+        get(kwargs, :linestyle, "-"),
+        get(kwargs, :marker, nothing),
+        get(kwargs, :markersize, nothing),
+        get(kwargs, :markerfacecolor, nothing)
     )
 end
 line(x, y; kwargs...) = line(x=x, y=y; kwargs...)
@@ -32,7 +40,19 @@ line(x, y, label; kwargs...) = line(x=x, y=y, label=label; kwargs...)
 
 "Draw onto an axis"
 function draw(ax, state, l::LineLayer)
-    p = ax[:plot](l.x, l.y, color=l.color, linewidth=l.linewidth, alpha=l.alpha)
+    args = Dict()
+
+    p = ax[:plot](
+        l.x,
+        l.y,
+        color=l.color,
+        linewidth=l.linewidth,
+        linestyle=l.linestyle,
+        alpha=l.alpha,
+        marker=l.marker,
+        markersize=l.markersize,
+        markerfacecolor=l.markerfacecolor
+    )
     p[1] # oddity of matplotlib requires the dereference
 end
 
