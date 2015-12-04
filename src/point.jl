@@ -18,9 +18,9 @@ function point(; kwargs...)
         get(kwargs, :linewidth, 3),
         get(kwargs, :linestyle, "none"),
         get(kwargs, :marker, "."),
-        get(kwargs, :markersize, nothing),
+        get(kwargs, :markersize, 6),
         get(kwargs, :markerfacecolor, nothing)
     )
 end
 point(x, y; kwargs...) = point(x=x, y=y; kwargs...)
-point(x, y, label; kwargs...) = point(x=x, y=y, label=label; kwargs...)
+point(x, y, label::AbstractString; kwargs...) = point(x=x, y=y, label=label; kwargs...)
