@@ -10,7 +10,7 @@ export axis
 PyPlot.ioff()
 
 # we default to svg because that is how they will go into a paper
-PyPlot.svg(true)
+PyPlot.svg(false)
 
 # these are based on a good set of colors used in Google sheets
 defaultColors = ["#3366CC", "#DC3912", "#FF9902", "#0C9618", "#0099C6", "#990099", "#DD4477", "#66AA00", "#B82E2E"]

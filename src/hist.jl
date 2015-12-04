@@ -18,7 +18,7 @@ function histplot(; kwargs...)
     @assert haskey(kwargs, :x) "x argument must be provided"
 
     HistLayer(
-        kwargs[:x],
+        vec(kwargs[:x]),
         get(kwargs, :label, nothing),
         get(kwargs, :color, nothing),
         get(kwargs, :alpha, 1.0),

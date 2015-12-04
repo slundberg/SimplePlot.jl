@@ -10,8 +10,8 @@ function point(; kwargs...)
     @assert length(kwargs[:x]) == length(kwargs[:y]) "x and y arguments must be the same length"
 
     LineLayer(
-        kwargs[:x],
-        kwargs[:y],
+        vec(kwargs[:x]),
+        vec(kwargs[:y]),
         get(kwargs, :label, nothing),
         get(kwargs, :color, nothing),
         get(kwargs, :alpha, 1.0),

@@ -17,7 +17,7 @@ function violin(; kwargs...)
     @assert length(kwargs[:x]) == length(kwargs[:data]) "x and data arguments must be the same length"
 
     ViolinLayer(
-        kwargs[:x],
+        vec(kwargs[:x]),
         kwargs[:data],
         get(kwargs, :label, nothing),
         get(kwargs, :color, nothing)
