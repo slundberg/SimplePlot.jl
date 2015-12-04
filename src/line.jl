@@ -23,8 +23,8 @@ function line(; kwargs...)
     @assert length(kwargs[:x]) == length(kwargs[:y]) "x and y arguments must be the same length"
 
     LineLayer(
-        kwargs[:x],
-        kwargs[:y],
+        vec(kwargs[:x]),
+        vec(kwargs[:y]),
         get(kwargs, :label, nothing),
         get(kwargs, :color, nothing),
         get(kwargs, :alpha, 1.0),
@@ -35,6 +35,7 @@ function line(; kwargs...)
         get(kwargs, :markerfacecolor, nothing)
     )
 end
+line(y; kwargs...) = line(x=1:length(y), y=y; kwargs...)
 line(x, y; kwargs...) = line(x=x, y=y; kwargs...)
 line(x, y, label; kwargs...) = line(x=x, y=y, label=label; kwargs...)
 
