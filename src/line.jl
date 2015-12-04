@@ -4,7 +4,7 @@ export line
 type LineLayer <: Layer
     x::AbstractVector
     y::AbstractVector
-    label::AbstractString
+    label
     color
     alpha::Float64
     linewidth::Float64
