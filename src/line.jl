@@ -28,10 +28,10 @@ function line(; kwargs...)
         get(kwargs, :label, nothing),
         get(kwargs, :color, nothing),
         get(kwargs, :alpha, 1.0),
-        get(kwargs, :linewidth, 3),
+        get(kwargs, :linewidth, 1),
         get(kwargs, :linestyle, "-"),
         get(kwargs, :marker, nothing),
-        get(kwargs, :markersize, nothing),
+        get(kwargs, :markersize, 6),
         get(kwargs, :markerfacecolor, nothing)
     )
 end
