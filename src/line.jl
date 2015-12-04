@@ -4,7 +4,7 @@ export line
 type LineLayer <: Layer
     x::AbstractVector
     y::AbstractVector
-    label
+    label::AbstractString
     color
     alpha::Float64
     linewidth::Float64
@@ -36,8 +36,9 @@ function line(; kwargs...)
     )
 end
 line(y; kwargs...) = line(x=1:length(y), y=y; kwargs...)
+line(y, label::AbstractString; kwargs...) = line(x=1:length(y), y=y, label=label; kwargs...)
 line(x, y; kwargs...) = line(x=x, y=y; kwargs...)
-line(x, y, label; kwargs...) = line(x=x, y=y, label=label; kwargs...)
+line(x, y, label::AbstractString; kwargs...) = line(x=x, y=y, label=label; kwargs...)
 
 "Draw onto an axis"
 function draw(ax, state, l::LineLayer)
