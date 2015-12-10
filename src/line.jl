@@ -2,17 +2,25 @@
 export line
 
 type LineLayer <: Layer
-    x::AbstractVector
-    y::AbstractVector
-    label
-    color
-    alpha::Float64
-    linewidth::Float64
-    linestyle
-    marker
-    markersize
-    markerfacecolor
+    params::Dict{Any,Any}
+    unusedParams::Dict{Any,Any}
 end
+
+param(line::LineLayer, symbol) = get(line.params, symbol, get(lineDefaults, symbol, nothing))
+defaults(line::LineLayer) = lineDefaults
+lineDefaults = Dict(
+    :x => nothing,
+    :y => nothing,
+    :label => nothing,
+    :color => nothing,
+    :alpha => 1.0,
+    :linewidth => 1,
+    :linestyle => "-",
+    :marker => nothing,
+    :markersize => 6,
+    :markerfacecolor => nothing
+)
+
 
 "Build a LineLayer"
 function line(; kwargs...)
@@ -22,18 +30,7 @@ function line(; kwargs...)
     @assert haskey(kwargs, :y) "y argument must be provided"
     @assert length(kwargs[:x]) == length(kwargs[:y]) "x and y arguments must be the same length"
 
-    LineLayer(
-        vec(kwargs[:x]),
-        vec(kwargs[:y]),
-        get(kwargs, :label, nothing),
-        get(kwargs, :color, nothing),
-        get(kwargs, :alpha, 1.0),
-        get(kwargs, :linewidth, 1),
-        get(kwargs, :linestyle, "-"),
-        get(kwargs, :marker, nothing),
-        get(kwargs, :markersize, 6),
-        get(kwargs, :markerfacecolor, nothing)
-    )
+    LineLayer(get_params(lineDefaults, kwargs)...)
 end
 line(y; kwargs...) = line(x=1:length(y), y=y; kwargs...)
 line(y, label::AbstractString; kwargs...) = line(x=1:length(y), y=y, label=label; kwargs...)
@@ -45,18 +42,21 @@ function draw(ax, state, l::LineLayer)
     args = Dict()
 
     p = ax[:plot](
-        l.x,
-        l.y,
-        color=l.color,
-        linewidth=l.linewidth,
-        linestyle=l.linestyle,
-        alpha=l.alpha,
-        marker=l.marker,
-        markersize=l.markersize,
-        markerfacecolor=l.markerfacecolor
+        param(l, :x),
+        param(l, :y),
+        color = param(l, :color),
+        linewidth = param(l, :linewidth),
+        linestyle = param(l, :linestyle),
+        alpha = param(l, :alpha),
+        marker = param(l, :marker),
+        markersize = param(l, :markersize),
+        markerfacecolor = param(l, :markerfacecolor)
     )
     p[1] # oddity of matplotlib requires the dereference
 end
 
-"This wraps the layer in an axis for direct display"
-Base.show(io::Base.IO, h::LineLayer) = Base.display(axis(h))
+propagate_params(line::LineLayer) = nothing
+propagate_params_up(line::LineLayer) = nothing
+
+"This wraps the layer for direct display"
+Base.show(io::Base.IO, x::LineLayer) = Base.show(io, axis(x))
