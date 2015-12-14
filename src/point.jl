@@ -9,12 +9,13 @@ function point(; kwargs...)
     @assert haskey(kwargs, :y) "y argument must be provided"
     @assert length(kwargs[:x]) == length(kwargs[:y]) "x and y arguments must be the same length"
 
-    pointDefaults = merge(lineDefaults, Dict(
-        "linestyle" => "none",
-        "marker" => ".",
-    ))
+    # make this a point rather than a line plot
+    kwargs = merge(Dict(
+        :linestyle => "none",
+        :marker => "."
+    ), kwargs)
 
-    LineLayer(get_params(pointDefaults, kwargs)...)
+    LineLayer(get_params(lineDefaults, kwargs)...)
 end
 point(y; kwargs...) = point(x=1:length(y), y=y; kwargs...)
 point(y, label::AbstractString; kwargs...) = point(x=1:length(y), y=y, label=label; kwargs...)
