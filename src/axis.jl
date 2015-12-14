@@ -24,7 +24,18 @@ axisDefaults = Dict(
     :yticklabels => nothing,
     :yscale => nothing,
     :legend => "best",
-    :stacked => false
+    :stacked => false,
+    :gridaxis => nothing,
+    :gridcolor => "#BBBBBB",
+    :gridalpha => 1,
+    :gridlinewidth => 1,
+    :gridlinestyle => "-",
+    :spineleft => true,
+    :spineright => false,
+    :spinetop => false,
+    :spinebottom => true,
+    :xtickspos => "bottom",
+    :ytickspos => "left"
 )
 
 "Create a new axis with the given layers and attributes."
@@ -40,10 +51,12 @@ Base.show(io::Base.IO, x::Axis) = Base.display(plot(grid(x)))
 "Create a new axis with the given layers and attributes."
 function draw(ax, state, axis::Axis)
 
-    ax[:spines]["right"][:set_visible](false)
-    ax[:spines]["top"][:set_visible](false)
-    ax[:yaxis][:set_ticks_position]("left")
-    ax[:xaxis][:set_ticks_position]("bottom")
+    ax[:spines]["right"][:set_visible](param(axis, :spineright))
+    ax[:spines]["left"][:set_visible](param(axis, :spineleft))
+    ax[:spines]["top"][:set_visible](param(axis, :spinetop))
+    ax[:spines]["bottom"][:set_visible](param(axis, :spinebottom))
+    ax[:yaxis][:set_ticks_position](param(axis, :ytickspos))
+    ax[:xaxis][:set_ticks_position](param(axis, :xtickspos))
     param(axis, :xlabel) != nothing && ax[:set_xlabel](param(axis, :xlabel))
     param(axis, :ylabel) != nothing && ax[:set_ylabel](param(axis, :ylabel))
     param(axis, :xlim) != nothing && ax[:set_xlim](param(axis, :xlim))
@@ -55,6 +68,16 @@ function draw(ax, state, axis::Axis)
     param(axis, :yticklabels) != nothing && ax[:set_yticklabels](param(axis, :yticklabels))
     param(axis, :yscale) != nothing && ax[:set_yscale](param(axis, :yscale))
     param(axis, :title) != nothing && ax[:set_title](param(axis, :title), y=param(axis, :titley))
+    if param(axis, :gridaxis) != nothing
+        ax[:grid](
+            axis = param(axis, :gridaxis),
+            color = param(axis, :gridcolor),
+            alpha = param(axis, :gridalpha),
+            linewidth = param(axis, :gridlinewidth),
+            linestyle = param(axis, :gridlinestyle)
+        )
+        ax[:set_axisbelow](true)
+    end
 
     # fill in any missing colors with the defaults
     colorPos = 1
@@ -138,3 +161,6 @@ end
 
 "This wraps the axis for direct display"
 Base.show(io::Base.IO, x::Axis) = Base.show(io, grid(1, 1, x))
+
+pyplot(x::Axis) = pyplot(grid(1, 1, x))
+save(outPath::AbstractString, x::Axis) = save(outPath, grid(1, 1, x))

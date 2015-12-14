@@ -55,8 +55,8 @@ function draw(ax, state, l::LineLayer)
     p[1] # oddity of matplotlib requires the dereference
 end
 
-propagate_params(line::LineLayer) = nothing
-propagate_params_up(line::LineLayer) = nothing
-
 "This wraps the layer for direct display"
 Base.show(io::Base.IO, x::LineLayer) = Base.show(io, axis(x))
+
+pyplot(x::LineLayer) = pyplot(axis(x))
+save(outPath::AbstractString, x::LineLayer) = save(outPath, axis(x))

@@ -14,11 +14,13 @@ PyPlot.ioff()
 PyPlot.svg(false)
 
 # these are based on a good set of colors used in Google sheets
-defaultColors = ["#3366CC", "#DC3912", "#FF9902", "#0C9618", "#0099C6", "#990099", "#DD4477", "#66AA00", "#B82E2E"]
+defaultColors = [
+    "#3366CC", "#DC3912", "#FF9902", "#0C9618", "#0099C6",
+    "#990099", "#DD4477", "#66AA00", "#B82E2E", "#316395",
+    "#994499", "#22AA99", "#AAAA11", "#6633CC", "#E67300"
+]
 
 abstract Layer
-
-
 
 function save(outPath::AbstractString, plot::PyPlot.Figure)
     if endswith(outPath, ".pdf")
@@ -63,5 +65,8 @@ include("line.jl")
 include("point.jl")
 include("violin.jl")
 include("hist.jl")
+include("hline.jl")
+include("vline.jl")
+include("vspan.jl")
 
 end # module

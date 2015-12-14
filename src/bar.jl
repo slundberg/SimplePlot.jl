@@ -26,7 +26,7 @@ function bar(; kwargs...)
 
     BarLayer(get_params(barDefaults, kwargs)...)
 end
-bar(y; kwargs...) = bar(x=1:length(y), y=y; kwargs...)
+bar(y; kwargs...) = bar(x=1:length(y), y=y, xticklabels=Any[]; kwargs...)
 bar(x, y; kwargs...) = bar(x=x, y=y; kwargs...)
 bar(x, y, label; kwargs...) = bar(x=x, y=y, label=label; kwargs...)
 
@@ -59,7 +59,7 @@ function bar_axis_parser(ax, state, axis) #layers...; kwargs...)
     ax[:set_xticks](ind - 1 .+ width*maxBarOverlap/2 + groupSpacing)
     ax[:xaxis][:set_ticks_position]("none")
     ax[:set_xticklabels](
-        param(axis, :xticklabels) != nothing ? kwargs[:xticklabels] : xvalues,
+        param(axis, :xticklabels) != nothing ? param(axis, :xticklabels) : xvalues,
         rotation=param(axis, :xtickrotation)
     )
 
@@ -105,3 +105,6 @@ end
 
 "This wraps the layer in an axis for direct display"
 Base.show(io::Base.IO, x::BarLayer) = Base.show(io, axis(x))
+
+pyplot(x::BarLayer) = pyplot(axis(x))
+save(outPath::AbstractString, x::BarLayer) = save(outPath, axis(x))

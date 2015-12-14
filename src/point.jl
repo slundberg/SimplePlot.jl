@@ -9,18 +9,14 @@ function point(; kwargs...)
     @assert haskey(kwargs, :y) "y argument must be provided"
     @assert length(kwargs[:x]) == length(kwargs[:y]) "x and y arguments must be the same length"
 
-    LineLayer(
-        vec(kwargs[:x]),
-        vec(kwargs[:y]),
-        get(kwargs, :label, nothing),
-        get(kwargs, :color, nothing),
-        get(kwargs, :alpha, 1.0),
-        get(kwargs, :linewidth, 3),
-        get(kwargs, :linestyle, "none"),
-        get(kwargs, :marker, "."),
-        get(kwargs, :markersize, 6),
-        get(kwargs, :markerfacecolor, nothing)
-    )
+    pointDefaults = merge(lineDefaults, Dict(
+        "linestyle" => "none",
+        "marker" => ".",
+    ))
+
+    LineLayer(get_params(pointDefaults, kwargs)...)
 end
+point(y; kwargs...) = point(x=1:length(y), y=y; kwargs...)
+point(y, label::AbstractString; kwargs...) = point(x=1:length(y), y=y, label=label; kwargs...)
 point(x, y; kwargs...) = point(x=x, y=y; kwargs...)
 point(x, y, label::AbstractString; kwargs...) = point(x=x, y=y, label=label; kwargs...)

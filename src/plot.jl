@@ -66,3 +66,5 @@ end
 
 "This wraps the plot for direct display"
 Base.show(io::Base.IO, x::Plot) = Base.display(pyplot(x))
+
+save(outPath::AbstractString, x::Plot) = save(outPath, pyplot(x))

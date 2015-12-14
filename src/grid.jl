@@ -84,3 +84,6 @@ end
 
 "This wraps the grid for direct display"
 Base.show(io::Base.IO, x::Grid) = Base.show(io, plot(x))
+
+pyplot(x::Grid) = pyplot(plot(x))
+save(outPath::AbstractString, x::Grid) = save(outPath, plot(x))
