@@ -14,7 +14,7 @@ PyPlot.ioff()
 PyPlot.svg(false)
 
 # these are based on a good set of colors used in Google sheets
-defaultColors = [
+colors = [
     "#3366CC", "#DC3912", "#FF9902", "#0C9618", "#0099C6",
     "#990099", "#DD4477", "#66AA00", "#B82E2E", "#316395",
     "#994499", "#22AA99", "#AAAA11", "#6633CC", "#E67300"
@@ -55,6 +55,21 @@ function get_params(defaults, kwargs)
     usedParams,unusedParams
 end
 
+"Fixes the inconsistent areas of matplotlib's markers"
+function mark_rescaling(mark)
+    if mark == "."
+        return 2.8
+    elseif mark == "h"
+        return 1.1
+    elseif mark == "D"
+        return 0.8
+    elseif mark == "s"
+        return 0.9
+    else
+        return 1.0
+    end
+end
+
 include("axis.jl")
 include("grid.jl")
 include("plot.jl")
@@ -62,7 +77,8 @@ include("plot.jl")
 # include all the specific plot types
 include("bar.jl")
 include("line.jl")
-include("point.jl")
+include("mat.jl")
+include("scatter.jl")
 include("violin.jl")
 include("hist.jl")
 include("hline.jl")

@@ -8,6 +8,7 @@ end
 
 param(x::BarLayer, symbol) = get(x.params, symbol, get(barDefaults, symbol, nothing))
 defaults(bar::BarLayer) = barDefaults
+supportslegend(l::BarLayer) = false
 barDefaults = Dict(
     :x => nothing,
     :y => nothing,

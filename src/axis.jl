@@ -16,6 +16,7 @@ axisDefaults = Dict(
     :ylim => nothing,
     :title => nothing,
     :titley => 1,
+    :titlesize => "large",
     :xticks => nothing,
     :xticklabels => nothing,
     :xtickrotation => "horizontal",
@@ -35,7 +36,9 @@ axisDefaults = Dict(
     :spinetop => false,
     :spinebottom => true,
     :xtickspos => "bottom",
-    :ytickspos => "left"
+    :ytickspos => "left",
+    :legendcols => 1,
+    :legendmarkerscale => nothing
 )
 
 "Create a new axis with the given layers and attributes."
@@ -61,13 +64,13 @@ function draw(ax, state, axis::Axis)
     param(axis, :ylabel) != nothing && ax[:set_ylabel](param(axis, :ylabel))
     param(axis, :xlim) != nothing && ax[:set_xlim](param(axis, :xlim))
     param(axis, :ylim) != nothing && ax[:set_ylim](param(axis, :ylim))
+    param(axis, :xscale) != nothing && ax[:set_xscale](param(axis, :xscale))
     param(axis, :xticks) != nothing && ax[:set_xticks](param(axis, :xticks))
     param(axis, :xticklabels) != nothing && ax[:set_xticklabels](param(axis, :xticklabels))
-    param(axis, :xscale) != nothing && ax[:set_xscale](param(axis, :xscale))
+    param(axis, :yscale) != nothing && ax[:set_yscale](param(axis, :yscale))
     param(axis, :yticks) != nothing && ax[:set_yticks](param(axis, :yticks))
     param(axis, :yticklabels) != nothing && ax[:set_yticklabels](param(axis, :yticklabels))
-    param(axis, :yscale) != nothing && ax[:set_yscale](param(axis, :yscale))
-    param(axis, :title) != nothing && ax[:set_title](param(axis, :title), y=param(axis, :titley))
+    param(axis, :title) != nothing && ax[:set_title](param(axis, :title), y=param(axis, :titley), size=param(axis, :titlesize))
     if param(axis, :gridaxis) != nothing
         ax[:grid](
             axis = param(axis, :gridaxis),
@@ -83,7 +86,7 @@ function draw(ax, state, axis::Axis)
     colorPos = 1
     for l in param(axis, :layers)
         if param(l, :color) == nothing
-            l.params[:color] = defaultColors[colorPos]
+            l.params[:color] = colors[colorPos]
             colorPos += 1
         end
     end
@@ -143,19 +146,37 @@ end
 function build_legend(ax, axis, plotObjects)
 
     # placeholders for legend (because plots like violin don't directly support a legend)
-    patches = Any[]
-    for l in param(axis, :layers)
+    handles = Any[]
+    for (i,l) in enumerate(param(axis, :layers))
         if param(l, :label) != nothing
-            push!(patches, mpatches.Patch(color=param(l, :color), label=param(l, :label)))
+            if supportslegend(l)
+                push!(handles, plotObjects[i])
+            else
+                push!(handles, mpatches.Patch(color=param(l, :color), label=param(l, :label)))
+            end
         end
     end
 
+    # unlike matplotlib we keep a constant marker size by default for the legend
+    # markerscale = param(axis, :legendmarkerscale)
+    # if markerscale == nothing
+    #     marea = param(param(axis, :layers)[1], :markerarea)
+    #     if size(marea) != () marea = marea[1] end
+    #     markerscale = 10.0/sqrt(marea)
+    # end
+
     mask = Bool[param(l, :label) != nothing for l in param(axis, :layers)]
     loc = param(axis, :legend)
-    if loc != "none"
-        ax[:legend](handles=patches, frameon=false, loc=loc, handlelength=0.7, handleheight=0.7,
-            handletextpad=0.5, fontsize="medium", labelspacing=0.4
+    if loc != "none" && length(handles) != 0
+        println(handles)
+        lgnd = ax[:legend](handles=handles, frameon=false, loc=loc, handlelength=0.7, handleheight=0.7,
+            handletextpad=0.5, fontsize="medium", labelspacing=0.4, numpoints=1, ncol=param(axis, :legendcols),
+            scatterpoints=1
         )
+
+        for i in 1:length(lgnd[:legendHandles])
+            lgnd[:legendHandles][i][:_sizes] = [80*mark_rescaling(param(param(axis, :layers)[i], :marker))]
+        end
     end
 end
 
