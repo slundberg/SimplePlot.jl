@@ -37,8 +37,12 @@ axisDefaults = Dict(
     :spinebottom => true,
     :xtickspos => "bottom",
     :ytickspos => "left",
+    :xticklabelpos => "bottom",
+    :yticklabelpos => "left",
     :legendcols => 1,
-    :legendmarkerscale => nothing
+    :legendmarkerscale => nothing,
+    :invertx => false,
+    :inverty => false
 )
 
 "Create a new axis with the given layers and attributes."
@@ -58,6 +62,8 @@ function draw(ax, state, axis::Axis)
     ax[:spines]["left"][:set_visible](param(axis, :spineleft))
     ax[:spines]["top"][:set_visible](param(axis, :spinetop))
     ax[:spines]["bottom"][:set_visible](param(axis, :spinebottom))
+    ax[:yaxis][:set_label_position](param(axis, :yticklabelpos))
+    ax[:xaxis][:set_label_position](param(axis, :xticklabelpos))
     ax[:yaxis][:set_ticks_position](param(axis, :ytickspos))
     ax[:xaxis][:set_ticks_position](param(axis, :xtickspos))
     param(axis, :xlabel) != nothing && ax[:set_xlabel](param(axis, :xlabel))
@@ -71,6 +77,8 @@ function draw(ax, state, axis::Axis)
     param(axis, :yticks) != nothing && ax[:set_yticks](param(axis, :yticks))
     param(axis, :yticklabels) != nothing && ax[:set_yticklabels](param(axis, :yticklabels))
     param(axis, :title) != nothing && ax[:set_title](param(axis, :title), y=param(axis, :titley), size=param(axis, :titlesize))
+    param(axis, :invertx) && ax[:invert_xaxis]()
+    param(axis, :inverty) && ax[:invert_yaxis]()
     if param(axis, :gridaxis) != nothing
         ax[:grid](
             axis = param(axis, :gridaxis),
