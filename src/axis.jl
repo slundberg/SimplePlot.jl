@@ -176,7 +176,6 @@ function build_legend(ax, axis, plotObjects)
     mask = Bool[param(l, :label) != nothing for l in param(axis, :layers)]
     loc = param(axis, :legend)
     if loc != "none" && length(handles) != 0
-        println(handles)
         lgnd = ax[:legend](handles=handles, frameon=false, loc=loc, handlelength=0.7, handleheight=0.7,
             handletextpad=0.5, fontsize="medium", labelspacing=0.4, numpoints=1, ncol=param(axis, :legendcols),
             scatterpoints=1
