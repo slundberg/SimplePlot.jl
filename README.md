@@ -42,7 +42,7 @@ plot(grid(1, 1, axis(line(1:10, rand(10)))))
 
 ### Auto-wrapping
 
-SimplePlot is designed to provide defaults for almost everything. This means that when we try to display a line layer it will be auto-wrapped in an axis, which will be auto-wrapped in a grid, which will be auto-wrapped in a plot. This means in practive we only need to specify the layer we care about, and SimplePlot will add the rest:
+SimplePlot is designed to provide defaults for almost everything. This means that when we try to display a line layer it will be auto-wrapped in an axis, which will be auto-wrapped in a grid, which will be auto-wrapped in a plot. This means in practice we only need to specify the layer we care about, and SimplePlot will add the rest:
 
 ```julia
 line(1:10, rand(10))
@@ -56,7 +56,7 @@ While auto-wrapping makes it easy to specify layers, what if we want to set an a
 axis(line(1:10, rand(10)), xlabel="index")
 ```
 
-But with parameter delagation any parameters not claimed by the object they are given are passed to containing objects until they are claimed. This means we can set the `xlabel` parameter on the line layer and it will get automatically picked up by the auto-generated axis object during display. This makes simple plots simple, while still maintaining strict order and stucture:
+But with parameter delagation any parameters not claimed by an object are passed to containing objects until they are claimed. This means we can set the `xlabel` parameter on the line layer and it will get automatically picked up by the auto-generated axis object during display. This makes simple plots simple, while still maintaining strict order and stucture:
 
 ```julia
 line(1:10, rand(10), xlabel="index")
@@ -91,7 +91,7 @@ plot(
 ```julia
 grid(1,2,
     line(1:4, [3,6,2,4], "A"),
-    line(1:4, [8,3,5,1], "B"),
+    line(1:4, [8,3,5,1], "B")
 )
 ```
 
