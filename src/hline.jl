@@ -8,7 +8,7 @@ end
 
 param(hline::HLineLayer, symbol) = get(hline.params, symbol, get(hlineDefaults, symbol, nothing))
 defaults(hline::HLineLayer) = hlineDefaults
-supportslegend(l::VLineLayer) = false
+supportslegend(l::HLineLayer) = false
 hlineDefaults = Dict(
     :xmin => 0,
     :xmax => 1,

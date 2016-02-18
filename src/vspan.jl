@@ -8,7 +8,7 @@ end
 
 param(vspan::VSpanLayer, symbol) = get(vspan.params, symbol, get(vspanDefaults, symbol, nothing))
 defaults(vspan::VSpanLayer) = vspanDefaults
-supportslegend(l::VLineLayer) = false
+supportslegend(l::VSpanLayer) = false
 vspanDefaults = Dict(
     :xmin => 0,
     :xmax => 1,
