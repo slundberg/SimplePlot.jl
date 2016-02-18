@@ -17,6 +17,7 @@ axisDefaults = Dict(
     :title => nothing,
     :titley => 1,
     :titlesize => "large",
+    :xmargin => nothing,
     :xticks => nothing,
     :xtickstight => nothing,
     :xticklabels => nothing,
@@ -73,6 +74,7 @@ function draw(ax, state, axis::Axis)
     param(axis, :xlim) != nothing && ax[:set_xlim](param(axis, :xlim))
     param(axis, :ylim) != nothing && ax[:set_ylim](param(axis, :ylim))
     param(axis, :xscale) != nothing && ax[:set_xscale](param(axis, :xscale))
+    param(axis, :xmargin) != nothing && ax[:margins](x=param(axis, :xmargin))
     if param(axis, :xticks) != nothing
         if typeof(param(axis, :xticks)) <: Int
             ax[:locator_params](axis="x", nbins=param(axis, :xticks))
@@ -83,6 +85,7 @@ function draw(ax, state, axis::Axis)
     param(axis, :xtickstight) != nothing && ax[:locator_params](axis="x", tight=param(axis, :xtickstight))
     param(axis, :xticklabels) != nothing && ax[:set_xticklabels](param(axis, :xticklabels))
     param(axis, :yscale) != nothing && ax[:set_yscale](param(axis, :yscale))
+    param(axis, :ymargin) != nothing && ax[:margins](y=param(axis, :ymargin))
     if param(axis, :yticks) != nothing
         if typeof(param(axis, :yticks)) <: Int
             ax[:locator_params](axis="y", nbins=param(axis, :yticks))
