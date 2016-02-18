@@ -8,6 +8,7 @@ end
 
 param(vline::VLineLayer, symbol) = get(vline.params, symbol, get(vlineDefaults, symbol, nothing))
 defaults(vline::VLineLayer) = vlineDefaults
+supportslegend(l::VLineLayer) = false
 vlineDefaults = Dict(
     :ymin => 0,
     :ymax => 1,
