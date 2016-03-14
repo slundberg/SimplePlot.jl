@@ -27,10 +27,9 @@ lineDefaults = Dict(
 "Build a LineLayer"
 function line(; kwargs...)
     kwargs = Dict(kwargs)
-
-    @assert haskey(kwargs, :x) "x argument must be provided"
-    @assert haskey(kwargs, :y) "y argument must be provided"
-    @assert length(kwargs[:x]) == length(kwargs[:y]) "x and y arguments must be the same length"
+    if haskey(kwargs, :x) && haskey(kwargs, :y)
+        @assert length(kwargs[:x]) == length(kwargs[:y]) "x and y arguments must be the same length"
+    end
 
     LineLayer(get_params(lineDefaults, kwargs)...)
 end
@@ -41,6 +40,8 @@ line(x, y, label::AbstractString; kwargs...) = line(x=x, y=y, label=label; kwarg
 
 "Draw onto an axis"
 function draw(ax, state, l::LineLayer)
+    @assert param(l, :x) != nothing "line layer must have an x parameter"
+    @assert param(l, :y) != nothing "line layer must have an y parameter"
     p = ax[:plot](
         param(l, :x),
         param(l, :y),
