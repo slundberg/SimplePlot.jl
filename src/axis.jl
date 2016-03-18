@@ -115,6 +115,9 @@ function draw(ax, state, axis::Axis)
         if param(l, :color) == nothing
             l.params[:color] = colors[colorPos]
             colorPos += 1
+            if colorPos > length(colors)
+                colorPos = 1
+            end
         end
     end
 
