@@ -25,7 +25,7 @@ scatter(rand(10), rand(10), xlabel="random")
 Pkg.clone("https://github.com/slundberg/SimplePlot.jl.git")
 ```
 
-SimplePlot is based on PyPlot.jl, which must also be installed and working.
+SimplePlot is based on PyPlot.jl, which must also be installed and working with a matplotlib version greater than 1.4.3.
 
 ## Usage
 
