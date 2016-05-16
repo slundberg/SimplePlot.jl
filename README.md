@@ -113,6 +113,11 @@ axis(
 )
 ```
 
+### Line layer
+
+```julia
+line(1:4, [3,6,2,4], "A", color="#ffff00", alpha=0.8)
+```
 
 ### Bar layer
 
@@ -120,10 +125,10 @@ axis(
 bar(["G1", "G2", "G3", "G4"], [3,6,2,4], "Label", color="#000000", alpha=0.8)
 ```
 
-### Line layer
+### Horizontal Bar layer
 
 ```julia
-line(1:4, [3,6,2,4], "A", color="#ffff00", alpha=0.8)
+hbar(["G1", "G2", "G3", "G4"], [3,6,2,4])
 ```
 
 ### Scatter layer
