@@ -76,6 +76,7 @@ include("plot.jl")
 
 # include all the specific plot types
 include("bar.jl")
+include("hbar.jl")
 include("line.jl")
 include("mat.jl")
 include("scatter.jl")
