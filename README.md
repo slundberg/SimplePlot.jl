@@ -134,7 +134,7 @@ hbar(["G1", "G2", "G3", "G4"], [3,6,2,4])
 ### Scatter layer
 
 ```julia
-line(1:4, [3,6,2,4], markerarea=0.8)
+scatter(1:4, [3,6,2,4], markerarea=0.8)
 ```
 
 ### Histogram layer
@@ -147,6 +147,12 @@ histplot(randn(1000), bins=10, histtype="bar")
 
 ```julia
 matplot(rand(10,20))
+```
+
+### Area layer
+
+```julia
+area(1:10, rand(10), zeros(10))
 ```
 
 
