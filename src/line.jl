@@ -16,7 +16,6 @@ lineDefaults = Dict(
     :color => nothing,
     :alpha => 1.0,
     :linewidth => 1,
-    :vlinewidth => nothing,
     :linestyle => "-",
     :marker => nothing,
     :markerarea => 6,
@@ -43,35 +42,19 @@ line(x, y, label::AbstractString; kwargs...) = line(x=x, y=y, label=label; kwarg
 function draw(ax, state, l::LineLayer)
     @assert param(l, :x) != nothing "line layer must have an x parameter"
     @assert param(l, :y) != nothing "line layer must have an y parameter"
-    p = nothing
-    if param(l, :vlinewidth) != nothing
-        len = length(param(l, :vlinewidth))
-        @assert (len == length(param(l, :y))) || len == 1 "vlinewidth must be a scalar or the same length as y"
-        p = ax[:fill_between](
-            param(l, :x),
-            param(l, :y) .- param(l, :vlinewidth)/2,
-            param(l, :y) .+ param(l, :vlinewidth)/2,
-            facecolor = param(l, :color),
-            linewidth = 0,
-            alpha = param(l, :alpha),
-            label = param(l, :label)
-        )
-    else
-        p = ax[:plot](
-            param(l, :x),
-            param(l, :y),
-            color = param(l, :color),
-            linewidth = param(l, :linewidth),
-            linestyle = param(l, :linestyle),
-            alpha = param(l, :alpha),
-            marker = param(l, :marker),
-            markersize = param(l, :markerarea) * mark_rescaling(param(l, :marker)),
-            markerfacecolor = param(l, :markerfacecolor),
-            markeredgecolor = param(l, :markeredgecolor),
-            label = param(l, :label)
-        )[1] # oddity of matplotlib requires the dereference
-    end
-    p
+    ax[:plot](
+        param(l, :x),
+        param(l, :y),
+        color = param(l, :color),
+        linewidth = param(l, :linewidth),
+        linestyle = param(l, :linestyle),
+        alpha = param(l, :alpha),
+        marker = param(l, :marker),
+        markersize = param(l, :markerarea) * mark_rescaling(param(l, :marker)),
+        markerfacecolor = param(l, :markerfacecolor),
+        markeredgecolor = param(l, :markeredgecolor),
+        label = param(l, :label)
+    )[1] # oddity of matplotlib requires the dereference
 end
 
 "This wraps the layer for direct display"

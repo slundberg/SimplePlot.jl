@@ -1,6 +1,7 @@
 using SimplePlot
 using Base.Test
 
+include("area.jl")
 include("bar.jl")
 include("hbar.jl")
 include("line.jl")
