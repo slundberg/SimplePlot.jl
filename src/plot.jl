@@ -44,6 +44,8 @@ function pyplot(plot::Plot)
         :colOffset => 0
     ), param(plot, :grid))
 
+    PyPlot.close(fig) # prevent the plot from being displayed prematurely
+
     fig
 end
 
