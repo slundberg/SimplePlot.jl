@@ -28,7 +28,8 @@ histDefaults = Dict(
     :edgecolor => "#ffffff",
     :histtype => "bar",
     :linewidth => 1,
-    :linestyle => "solid"
+    :linestyle => "solid",
+    :weights => nothing
 )
 
 "Build a HistLayer"
@@ -53,7 +54,8 @@ function draw(ax, state, l::HistLayer)
         edgecolor = param(l, :edgecolor),
         histtype = param(l, :histtype),
         linewidth = param(l, :linewidth),
-        linestyle = param(l, :linestyle)
+        linestyle = param(l, :linestyle),
+        weights = param(l, :weights)
     )
     p
 end
