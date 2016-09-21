@@ -24,9 +24,9 @@ abstract Layer
 
 function save(outPath::AbstractString, plot::PyPlot.Figure)
     if endswith(outPath, ".pdf")
-        open(f->writemime(f, "application/pdf", plot), outPath, "w")
+        open(f->show(f, "application/pdf", plot), outPath, "w")
     elseif endswith(outPath, ".png")
-        open(f->writemime(f, "image/png", plot), outPath, "w")
+        open(f->show(f, "image/png", plot), outPath, "w")
     else
         error("Unrecognized file type extension! ($outPath)")
     end

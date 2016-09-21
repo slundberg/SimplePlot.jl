@@ -55,9 +55,6 @@ function axis(layers...; kwargs...)
     Axis(get_params(axisDefaults, kwargs)...)
 end
 
-"This wraps the layer in an axis for direct display"
-Base.show(io::Base.IO, x::Axis) = Base.display(plot(grid(x)))
-
 "Create a new axis with the given layers and attributes."
 function draw(ax, state, axis::Axis)
 

@@ -1,3 +1,4 @@
+import Base.show
 
 export plot
 
@@ -44,9 +45,9 @@ function pyplot(plot::Plot)
         :colOffset => 0
     ), param(plot, :grid))
 
-    PyPlot.close(fig) # prevent the plot from being displayed prematurely
+     # prevent the plot from being displayed prematurely
 
-    fig
+    PyPlot.Figure(fig)
 end
 
 "Allow unused parameters to apply to things below and above where they are defined."
@@ -67,6 +68,11 @@ function propagate_params_up(plot::Plot)
 end
 
 "This wraps the plot for direct display"
-Base.show(io::Base.IO, x::Plot) = Base.display(pyplot(x))
+function Base.show(io::Base.IO, x::Plot)
+    p = pyplot(x)
+    display(p) # need to display to io instead at some point
+    close(p)
+end
+#Base.show(io::Base.IO, ::MIME"text/html", x::Plot) = Base.show(io, pyplot(x))
 
 save(outPath::AbstractString, x::Plot) = save(outPath, pyplot(x))

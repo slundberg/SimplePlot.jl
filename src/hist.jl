@@ -40,8 +40,8 @@ function histplot(; kwargs...)
     HistLayer(get_params(histDefaults, kwargs)...)
 end
 histplot(x; kwargs...) = histplot(x=x; kwargs...)
-histplot(x, label::ASCIIString; kwargs...) = histplot(x=x, label=label; kwargs...)
-histplot(x, bins, label::ASCIIString; kwargs...) = histplot(x=x, bins=bins, label=label; kwargs...)
+histplot(x, label::String; kwargs...) = histplot(x=x, label=label; kwargs...)
+histplot(x, bins, label::String; kwargs...) = histplot(x=x, bins=bins, label=label; kwargs...)
 histplot(x, bins; kwargs...) = histplot(x=x, bins=bins; kwargs...)
 
 "Draw onto an axis"
