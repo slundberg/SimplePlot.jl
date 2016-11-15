@@ -50,7 +50,7 @@ axisDefaults = Dict(
 
 "Create a new axis with the given layers and attributes."
 function axis(layers...; kwargs...)
-    kwargs = Dict(kwargs)
+    kwargs = Dict{Any,Any}(kwargs)
     kwargs[:layers] = [collect(filter(x->x != nothing, layers)); get(kwargs, :layers, Any[])]
     Axis(get_params(axisDefaults, kwargs)...)
 end
