@@ -143,7 +143,7 @@ end
 
 # "Creates an axis object."
 # function build_axis(; kwargs...)
-#     kwargs = Dict(kwargs)
+#     kwargs = Dict{Any,Any}(kwargs)
 #
 #     fig,ax = PyPlot.subplots(figsize=get(kwargs, :figsize, (5, 4)))
 #

@@ -28,7 +28,7 @@ end
 
 "Build a MatLayer"
 function matplot(; kwargs...)
-    kwargs = Dict(kwargs)
+    kwargs = Dict{Any,Any}(kwargs)
 
     @assert haskey(kwargs, :matrix) "matrix argument must be provided"
     @assert haskey(kwargs, :x) "x argument must be provided"

@@ -23,7 +23,7 @@ vlineDefaults = Dict(
 
 "Build a VLineLayer"
 function vline(; kwargs...)
-    kwargs = Dict(kwargs)
+    kwargs = Dict{Any,Any}(kwargs)
     VLineLayer(get_params(vlineDefaults, kwargs)...)
 end
 vline(x; kwargs...) = vline(x=x; kwargs...)

@@ -16,11 +16,11 @@ gridDefaults = Dict(
 
 "Create a new grid with the given blocks and attributes."
 function grid(; kwargs...)
-    kwargs = Dict(kwargs)
+    kwargs = Dict{Any,Any}(kwargs)
     Grid(get_params(gridDefaults, kwargs)...)
 end
 function grid(rows::Integer, cols::Integer, blocks...; kwargs...)
-    kwargs = Dict(kwargs)
+    kwargs = Dict{Any,Any}(kwargs)
 
     # make sure all layers are wrapped in an axis
     wrappedBlocks = Any[]
@@ -34,7 +34,7 @@ function grid(rows::Integer, cols::Integer, blocks...; kwargs...)
     grid(;kwargs...)
 end
 function grid(firstBlock::Union{Layer,Axis,Grid}, blocks...; kwargs...)
-    kwargs = Dict(kwargs)
+    kwargs = Dict{Any,Any}(kwargs)
     grid(1, length(blocks)+1, firstBlock, blocks...; kwargs...)
 end
 

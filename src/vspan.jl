@@ -24,7 +24,7 @@ vspanDefaults = Dict(
 
 "Build a VSpanLayer"
 function vspan(; kwargs...)
-    kwargs = Dict(kwargs)
+    kwargs = Dict{Any,Any}(kwargs)
     VSpanLayer(get_params(vspanDefaults, kwargs)...)
 end
 vspan(xmin, xmax; kwargs...) = vspan(xmin=xmin, xmax=xmax; kwargs...)

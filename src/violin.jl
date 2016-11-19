@@ -10,7 +10,7 @@ end
 
 "Build a ViolinLayer"
 function violin(; kwargs...)
-    kwargs = Dict(kwargs)
+    kwargs = Dict{Any,Any}(kwargs)
 
     @assert haskey(kwargs, :x) "x argument must be provided"
     @assert haskey(kwargs, :data) "data argument must be provided"
@@ -28,7 +28,7 @@ violin(x, data, label; kwargs...) = violin(x=x, data=data, label=label; kwargs..
 
 "Process all layers on an axis to determine the violin layout settings."
 function violin_axis_parser(ax, state, layers...; kwargs...)
-    kwargs = Dict(kwargs)
+    kwargs = Dict{Any,Any}(kwargs)
 
     # check for how many violin layers are present
     violinLayers = collect(filter(l->typeof(l)==ViolinLayer, layers))

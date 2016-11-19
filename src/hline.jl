@@ -23,7 +23,7 @@ hlineDefaults = Dict(
 
 "Build a HLineLayer"
 function hline(; kwargs...)
-    kwargs = Dict(kwargs)
+    kwargs = Dict{Any,Any}(kwargs)
     HLineLayer(get_params(hlineDefaults, kwargs)...)
 end
 hline(y; kwargs...) = hline(y=y; kwargs...)

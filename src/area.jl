@@ -21,7 +21,7 @@ areaDefaults = Dict(
 
 "Build a AreaLayer"
 function area(; kwargs...)
-    kwargs = Dict(kwargs)
+    kwargs = Dict{Any,Any}(kwargs)
     if haskey(kwargs, :x) && haskey(kwargs, :y1) && haskey(kwargs, :y2)
         @assert length(kwargs[:x]) == length(kwargs[:y1]) "x and y1 arguments must be the same length"
         @assert length(kwargs[:x]) == length(kwargs[:y2]) "x and y2 arguments must be the same length"

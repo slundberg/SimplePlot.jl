@@ -35,7 +35,7 @@ histDefaults = Dict(
 
 "Build a HistLayer"
 function histplot(; kwargs...)
-    kwargs = Dict(kwargs)
+    kwargs = Dict{Any,Any}(kwargs)
     @assert haskey(kwargs, :x) "x argument must be provided"
     HistLayer(get_params(histDefaults, kwargs)...)
 end

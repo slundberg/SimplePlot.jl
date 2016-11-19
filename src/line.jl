@@ -26,7 +26,7 @@ lineDefaults = Dict(
 
 "Build a LineLayer"
 function line(; kwargs...)
-    kwargs = Dict(kwargs)
+    kwargs = Dict{Any,Any}(kwargs)
     if haskey(kwargs, :x) && haskey(kwargs, :y)
         @assert length(kwargs[:x]) == length(kwargs[:y]) "x and y arguments must be the same length"
     end

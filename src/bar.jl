@@ -19,7 +19,7 @@ barDefaults = Dict(
 
 "Build a BarLayer"
 function bar(; kwargs...)
-    kwargs = Dict(kwargs)
+    kwargs = Dict{Any,Any}(kwargs)
 
     @assert haskey(kwargs, :x) "x argument must be provided"
     @assert haskey(kwargs, :y) "y argument must be provided"
