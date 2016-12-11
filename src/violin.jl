@@ -14,7 +14,8 @@ violinDefaults = Dict(
     :y => nothing,
     :label => nothing,
     :color => nothing,
-    :data => nothing
+    :data => nothing,
+    :alpha => 1.0
 )
 
 "Build a ViolinLayer"
@@ -95,7 +96,7 @@ function draw(ax, state, l::ViolinLayer)
     for pc in p["bodies"]
         pc[:set_facecolor](param(l, :color))
         pc[:set_edgecolor]("none")
-        pc[:set_alpha](1)
+        pc[:set_alpha](param(l, :alpha))
     end
     state[:violin_ind] += 1
     p
