@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/slundberg/SimplePlot.jl.svg?branch=master)](https://travis-ci.org/slundberg/SimplePlot.jl)
 
-A collection of plotting methods designed to have a very simple and clean interface.
+A <span color="red">collection</span> of plotting methods designed to have a very simple and clean interface.
+
+
 
 ```julia
 line(rand(10))
